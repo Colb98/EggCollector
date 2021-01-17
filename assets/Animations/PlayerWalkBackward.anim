@@ -1,0 +1,64 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "PlayerWalkBackward",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1,
+  "sample": 4,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "0f99674f-a509-475e-b007-6a04acf8b8bb"
+            }
+          },
+          {
+            "frame": 0.25,
+            "value": {
+              "__uuid__": "17061c9a-570b-48ae-850c-f0c3d14c476a"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "c8eb2dee-6e1b-4d16-9db3-8edf73ddaeec"
+            }
+          },
+          {
+            "frame": 0.75,
+            "value": {
+              "__uuid__": "c9fe76e0-fa28-4c8f-a1be-595536e6d6cc"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": [
+    {
+      "frame": 0,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.25,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.5,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.75,
+      "func": "",
+      "params": []
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "PlayerWalkLeft",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1,
+  "sample": 4,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "51ddeb26-dc27-4500-8b77-7815b85b13a9"
+            }
+          },
+          {
+            "frame": 0.25,
+            "value": {
+              "__uuid__": "5107b766-1655-4ae9-977f-9c641fc5748a"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "0e6c8f7e-f361-42d1-b763-98e8b57feb78"
+            }
+          },
+          {
+            "frame": 0.75,
+            "value": {
+              "__uuid__": "35b199fd-2855-4f16-bbd6-78396a3e4707"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": [
+    {
+      "frame": 0,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.25,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.5,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.75,
+      "func": "",
+      "params": []
+    }
+  ]
+}

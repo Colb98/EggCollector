@@ -1,0 +1,64 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "PlayerWalkForward",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1,
+  "sample": 4,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "932b073b-5f66-480a-a5c7-c4a50209d3c1"
+            }
+          },
+          {
+            "frame": 0.25,
+            "value": {
+              "__uuid__": "fb822f89-ae7e-41af-9b4d-553c04dcc2fe"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "9ddb2452-c4c3-4762-9c5b-261381b609f7"
+            }
+          },
+          {
+            "frame": 0.75,
+            "value": {
+              "__uuid__": "92200bbb-9ac2-4639-874e-84c103b3e908"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": [
+    {
+      "frame": 0,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.25,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.5,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.75,
+      "func": "",
+      "params": []
+    }
+  ]
+}
