@@ -61,6 +61,17 @@ export default class MockServer extends Server {
         const dt = (curTime - this.lastTickTime)/1000;
         super.onTick(dt);
         this.lastTickTime = curTime;
+
+        if(this.lastTickTime % 3 < dt)
+            this.AIAutoMove();
+    }
+
+    AIAutoMove () {
+        for(let i=1;i<this.game.players.length;i++){
+            const ai = this.game.players[i];
+            ai.direction.x = Math.floor(Math.random()*3 - 1);
+            ai.direction.y = Math.floor(Math.random()*3 - 1);
+        }
     }
 
     mockLatency () {

@@ -13,11 +13,12 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class Egg extends cc.Component {
 
-    @property
+    // @property
     pickRadius: number = 50;
     
     picked: boolean = false;
     logicPosition: cc.Vec2;
+    id: number;
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
@@ -38,12 +39,21 @@ export default class Egg extends cc.Component {
         this.node.active = true;
     }
 
+    setId (id) {
+        this.id = id;
+    }
+
+    updatePosition () {
+        this.node.x = this.logicPosition.x * cc.winSize.width/GameConst.MAP_WIDTH;
+        this.node.y = this.logicPosition.y * cc.winSize.height/GameConst.MAP_HEIGHT;
+    }
+
     setLogicPosition (pos : cc.Vec2){
         this.logicPosition = pos;
+        this.updatePosition();
     }
 
     update (dt) {
-        this.node.x = this.logicPosition.x * cc.winSize.width/GameConst.MAP_WIDTH;
-        this.node.y = this.logicPosition.y * cc.winSize.height/GameConst.MAP_HEIGHT;
+        this.updatePosition();
     }
 }

@@ -48,7 +48,20 @@ export default class Server {
                 score: player.score
             });
         }
+        const eggs = [];
+        for(let i=0;i<this.game.eggs.length;i++){
+            const egg = this.game.eggs[i];
+            eggs.push({
+                id: egg.id,
+                pos: egg.position
+            })
+        }
         packet.setField("players", players);
+        packet.setField("eggs", eggs);
+        // cc.log("HI %s", JSON.stringify(this.game.curTickCollected));
+        packet.setField("curTickCollected", [...this.game.curTickCollected]); // Clone the array
+        this.game.flushCurTickCollectedEgg();
+        // cc.log("YEP %s", JSON.stringify(packet.getField("curTickCollected")));
         this.sendPacket(packet);
     }
 

@@ -48,7 +48,11 @@ export default class GameGlobal {
     onReceivePacket(packet: Packet) {
         switch(packet.id){
             case PacketIDs.UPDATE_STATE:
-                const state = packet.getField("players");
+                const state = {
+                    players : packet.getField("players"),
+                    eggs : packet.getField("eggs"),
+                    curTickCollected : packet.getField("curTickCollected")
+                };
                 if(this.curGame) this.curGame.syncState(state);
                 break;
             case PacketIDs.NEW_GAME:

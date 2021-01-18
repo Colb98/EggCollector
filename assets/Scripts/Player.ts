@@ -81,6 +81,13 @@ export default class Player extends cc.Component {
         this.updateFacing(v);
     }
 
+    setScore (score : number) {
+        if(score > this.score){
+            this.onPickEggSuccessful();
+        }
+        this.score = score;
+    }
+
     setLogicPosition (pos : cc.Vec2) {
         this.logicPosition = pos;
     }

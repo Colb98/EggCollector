@@ -72,26 +72,61 @@ export default class Game extends cc.Component {
         }
     }
 
-    instantiateEggRandom () {
-        const winSize = cc.winSize;
-        if(this.eggPrefab != null){
-            const numEggGen = Math.random() * 4 + 1;
-            for(let i=0;i<numEggGen;i++){
-                let pos = cc.v2(Math.random()*GameConst.MAP_WIDTH, Math.random()*GameConst.MAP_HEIGHT);
-                let newEgg = this.eggsPool.get();
-                newEgg.getComponent(Egg).setLogicPosition(pos);
-                this.node.addChild(newEgg);
-                this.eggs.push(newEgg.getComponent(Egg));
-            }
-        }
-    }
+    // instantiateEggRandom () {
+    //     const winSize = cc.winSize;
+    //     if(this.eggPrefab != null){
+    //         const numEggGen = Math.random() * 4 + 1;
+    //         for(let i=0;i<numEggGen;i++){
+    //             let pos = cc.v2(Math.random()*GameConst.MAP_WIDTH, Math.random()*GameConst.MAP_HEIGHT);
+    //             let newEgg = this.eggsPool.get();
+    //             newEgg.getComponent(Egg).setLogicPosition(pos);
+    //             this.node.addChild(newEgg);
+    //             this.eggs.push(newEgg.getComponent(Egg));
+    //         }
+    //     }
+    // }
 
     syncState (state){
-        for(let i=0;i<state.length;i++){
-            const player = this.players[state[i].id];
-            player.setLogicPosition(state[i].pos);
-            player.setDirection(state[i].dir);
-            // player.setScore(state[i].score);
+        for(let i=0;i<state.players.length;i++){
+            const data = state.players[i];
+            const player = this.players[data.id];
+            player.setLogicPosition(data.pos);
+            player.setDirection(data.dir);
+            player.setScore(data.score);
+        }
+        for(let i=0;i<state.eggs.length;i++){
+            const data = state.eggs[i];
+            let egg = this.getEgg(data.id);
+            if(!egg){
+                const eggNode = this.eggsPool.get();
+                egg = eggNode.getComponent(Egg);
+                egg.setId(data.id);
+                egg.setLogicPosition(data.pos);
+                this.node.addChild(eggNode);
+                this.eggs.push(egg);
+            }
+        }
+        for(let i=0;i<state.curTickCollected.length;i++){
+            const data = state.curTickCollected[i];
+            let egg = this.getEgg(data);
+            if(egg == undefined){
+                cc.log("Cannot find egg with id", data);
+                continue;
+            }
+            this.eggs.splice(this.eggs.indexOf(egg), 1);
+            this.eggsPool.put(egg.node);
+        }
+
+        this.updateScores();
+    }
+
+    getEgg (id : number){
+        return this.eggs.find(egg => egg.id == id);
+    }
+
+    updateScores () {
+        for(let i=0;i<this.players.length;i++){
+            this.scoreBoards[i].setScore(this.players[i].score);
         }
     }
 
@@ -123,23 +158,24 @@ export default class Game extends cc.Component {
             this.ended = true;
             return;
         }
-        if(this.timeElapsed % 2 < dt){
-            this.instantiateEggRandom();
-        }
 
-        //TODO: split the screen to multiple area to optimize performance
-        for(let i=0;i<this.players.length;i++){
-            for(let j=0;j<this.eggs.length;j++){
-                if(this.eggs[j].node.active){
-                    const distance = this.players[i].node.getPosition().sub(this.eggs[j].node.getPosition());
-                    if(distance.len() < this.eggs[j].pickRadius){
-                        this.eggs[j].pick(this.players[i]);
-                        this.eggsPool.put(this.eggs[j].node);
-                        //TODO: refactor
-                        this.scoreBoards[i].setScore(this.players[i].score);
-                    }
-                }
-            }
-        }
+        // Server side
+        // if(this.timeElapsed % GameConst.EGG_GEN_TIME < dt){
+        //     this.instantiateEggRandom();
+        // }
+
+        // for(let i=0;i<this.players.length;i++){
+        //     for(let j=0;j<this.eggs.length;j++){
+        //         if(this.eggs[j].node.active){
+        //             const distance = this.players[i].node.getPosition().sub(this.eggs[j].node.getPosition());
+        //             if(distance.len() < this.eggs[j].pickRadius){
+        //                 this.eggs[j].pick(this.players[i]);
+        //                 this.eggsPool.put(this.eggs[j].node);
+        //                 //TODO: refactor
+        //                 this.scoreBoards[i].setScore(this.players[i].score);
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
