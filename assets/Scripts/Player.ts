@@ -30,6 +30,9 @@ export default class Player extends cc.Component {
     facing: Direction = Direction.Down;
     score: number = 0;
     logicPosition: cc.Vec2 = cc.v2(0,0);
+    id: number = 0;
+
+    lastUpdateFacing: number = 0;
 
     // LIFE-CYCLE CALLBACKS:
 
@@ -81,6 +84,10 @@ export default class Player extends cc.Component {
         this.updateFacing(v);
     }
 
+    setSpeed (speed) {
+        this.speed = speed;
+    }
+
     setScore (score : number) {
         if(score > this.score){
             this.onPickEggSuccessful();
@@ -99,7 +106,7 @@ export default class Player extends cc.Component {
     updateFacing (direction : cc.Vec2) {
         var dx = direction.x;
         var dy = direction.y;
-        var newFacing : Direction;
+        var newFacing : Direction = null;
         var animator = this.getComponent(cc.Animation);
 
         if(dy != 0){
@@ -111,11 +118,16 @@ export default class Player extends cc.Component {
             else newFacing = Direction.Left;
         }
         else {
-            animator.setCurrentTime(0);
-            animator.stop();
+            // at least 0.4s with no direction update => stop animation
+            if(!this.isManual() && Date.now() - this.lastUpdateFacing > 300){
+                if(this.id == 1) cc.log("CLEARRRRRRR facing");
+                animator.setCurrentTime(0);
+                animator.stop();
+            }
         }
 
-        if(newFacing != this.facing){
+        if(newFacing != this.facing && newFacing != null){
+            if(this.id == 1) cc.log("change facing");
             switch(newFacing){
                 case Direction.Up: animator.play("PlayerWalkBackward", 0.25); break;
                 case Direction.Down: animator.play("PlayerWalkForward", 0.25); break;
@@ -124,6 +136,10 @@ export default class Player extends cc.Component {
             }
 
             this.facing = newFacing;
+            this.lastUpdateFacing = Date.now();
+        }
+        else if(newFacing == this.facing){
+            this.lastUpdateFacing = Date.now();
         }
 
     }

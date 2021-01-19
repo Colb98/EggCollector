@@ -34,7 +34,6 @@ export default class GameGlobal {
             // Send start match/find match to server and wait for a signal to start
             this.sendPacket(new Packet(PacketIDs.NEW_GAME));
         }.bind(this));
-
     }
 
     openOption () {
@@ -56,7 +55,11 @@ export default class GameGlobal {
                 if(this.curGame) this.curGame.syncState(state);
                 break;
             case PacketIDs.NEW_GAME:
-                if(this.curGame) this.curGame.startGame();
+                const speedMultiplier = packet.getField("AISpeed");
+                if(this.curGame) {
+                    this.curGame.setAIHandicap(speedMultiplier);
+                    this.curGame.startGame();
+                }
         }
     }
 

@@ -12,9 +12,9 @@
   ],
   "start-scene": "47138695-784b-4328-a75c-20d3bdced47e",
   "preview-port": 7456,
-  "design-resolution-width": 960,
-  "design-resolution-height": 640,
-  "fit-width": false,
+  "design-resolution-width": 1600,
+  "design-resolution-height": 900,
+  "fit-width": true,
   "fit-height": true,
   "use-project-simulator-setting": false,
   "simulator-orientation": false,
@@ -33,5 +33,6 @@
     "live": {
       "enable": false
     }
-  }
+  },
+  "last-module-event-record-time": 1611082356256
 }

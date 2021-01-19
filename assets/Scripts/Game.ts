@@ -35,6 +35,7 @@ export default class Game extends cc.Component {
     private timeElapsed: number = 0;
     private started: boolean = false;
     private ended: boolean = false;
+    private AISpeedMultiplier: number = 1;
 
 
     onLoad () {
@@ -60,8 +61,12 @@ export default class Game extends cc.Component {
             var pos = cc.v2((i + 0.5) * GameConst.MAP_WIDTH/this.numberOfPlayers, GameConst.MAP_HEIGHT/2);
             var newPlayer = cc.instantiate(prefab);
             this.node.addChild(newPlayer);
-            newPlayer.getComponent(Player).setLogicPosition(pos);
-            this.players.push(newPlayer.getComponent(Player));
+            const player = newPlayer.getComponent(Player);
+            player.setLogicPosition(pos);
+            player.id = i;
+            if(i != 0)
+                player.setSpeed(this.AISpeedMultiplier);
+            this.players.push(player);
 
             let scoreBoard = cc.instantiate(this.scoreUIPrefab);
             scoreBoard.setPosition((i%3 + 0.5) * 300 + 10, cc.winSize.height - 100 * Math.floor(i/3) - 10);
@@ -143,6 +148,10 @@ export default class Game extends cc.Component {
     startGame () {
         cc.log("Client start game");
         this.started = true;
+    }
+
+    setAIHandicap (val){
+        // this.AISpeedMultiplier = val;
     }
 
     canPlay () {

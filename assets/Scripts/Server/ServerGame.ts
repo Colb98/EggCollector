@@ -6,6 +6,8 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
 import GameConst from "../GameConst";
+import Player from "./ServerPlayer";
+import Egg from "./ServerEgg";
 
 const {ccclass, property} = cc._decorator;
 
@@ -21,6 +23,7 @@ export default class ServerGame {
 
     eggLastGenTimeElapsed: number = 0;
     lastEggId: number = 0;
+    AISpeedMultiplier: number = 1;
 
     reset () {
         this.started = false;
@@ -35,8 +38,14 @@ export default class ServerGame {
         this.started = true;
         for(let i=0;i<GameConst.PLAYER_MAX;i++){
             this.players.push(new Player(i));
+            if(i != 0)
+                this.players[i].setSpeed(GameConst.PLAYER_SPEED * this.AISpeedMultiplier);
             this.players[i].setPosition(cc.v2((i + 0.5) * GameConst.MAP_WIDTH/GameConst.PLAYER_MAX, GameConst.MAP_HEIGHT/2));
         }
+    }
+
+    setHandicapForAI (val){
+        this.AISpeedMultiplier = val;
     }
 
     canPlay () : boolean {
@@ -131,55 +140,4 @@ export default class ServerGame {
     }
 }
 
-class Player {
-    id : number;
-    position : cc.Vec2;
-    direction : cc.Vec2 = cc.v2(0, 0);
-    score : number = 0;
 
-    constructor (id : number){
-        this.id = id;
-        this.score = 0;
-    }
-
-    setPosition (position : cc.Vec2){
-        this.position = position;
-    }
-
-    onCollectEgg () {
-        this.score += 1;
-    }
-
-    update (dt : number){
-        let v = cc.v2(this.direction.x, this.direction.y);
-        v.normalizeSelf();
-        this.position.x += v.x * GameConst.PLAYER_SPEED * dt;
-        this.position.y += v.y * GameConst.PLAYER_SPEED * dt;
-
-        this.position.x = Math.min(GameConst.MAP_WIDTH, Math.max(0, this.position.x));
-        this.position.y = Math.min(GameConst.MAP_HEIGHT, Math.max(0, this.position.y));
-
-        // cc.log("Player %d has pos (%f, %f)", this.id, this.position.x, this.position.y);
-    }
-}
-
-class Egg {
-    position : cc.Vec2;
-    pickRadius : number = GameConst.EGG_PICK_RADIUS;
-    active : boolean = true;
-    id : number;
-
-    setPosition (pos : cc.Vec2){
-        this.position = pos;
-    }
-
-    setId (id : number){
-        this.id = id;
-    }
-
-    checkCanPick (pos : cc.Vec2){
-        // cc.log("POS %s %s", JSON.stringify(pos), JSON.stringify(this.position));
-        // cc.log("distance %f %f", cc.Vec2.squaredDistance(pos, this.position), this.pickRadius * this.pickRadius);
-        return cc.Vec2.squaredDistance(pos, this.position) <= this.pickRadius * this.pickRadius;
-    }
-}

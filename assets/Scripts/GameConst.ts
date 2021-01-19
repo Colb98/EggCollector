@@ -16,6 +16,6 @@ export default class GameConst {
     static readonly PLAYER_SPEED : number = 90;
     static readonly GAME_TIME : number = 60;
     static readonly EGG_PICK_RADIUS : number = 30;
-    static readonly EGG_GEN_TIME : number = 2;
-    static readonly EGG_MAX_PER_GEN : number = 5;
+    static readonly EGG_GEN_TIME : number = 1.5;
+    static readonly EGG_MAX_PER_GEN : number = 9;
 }

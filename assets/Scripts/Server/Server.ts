@@ -18,6 +18,7 @@ export default class Server {
     constructor (){
         this.packetQueue = [];
         this.game = new ServerGame;
+        this.game.setHandicapForAI(1.2);
     }
 
     // Should be call by a scheduler
@@ -73,7 +74,9 @@ export default class Server {
             case PacketIDs.NEW_GAME:
                 this.game.reset();
                 this.game.start();
-                this.sendPacket(new Packet(PacketIDs.NEW_GAME));
+                const newGame = new Packet(PacketIDs.NEW_GAME);
+                newGame.setField("AISpeed", this.game.AISpeedMultiplier);
+                this.sendPacket(packet);
                 break;
         }
     }

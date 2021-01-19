@@ -7,6 +7,7 @@
 
 import GameGlobal from "../GameGlobal";
 import Packet from "../Packet";
+import AIPathFinding from "./AIPathFinding";
 import Server from "./Server";
 
 const {ccclass, property} = cc._decorator;
@@ -25,7 +26,7 @@ class PacketQueueElement {
 export default class MockServer extends Server {
     client : GameGlobal;
     lastTickTime: number;
-    realTime : boolean = false;
+    realTime : boolean = true;
 
     // Fake network latency by using a queue (maintain the packets' order)
     outPacketQueue: PacketQueueElement[] = [];
@@ -62,15 +63,17 @@ export default class MockServer extends Server {
         super.onTick(dt);
         this.lastTickTime = curTime;
 
-        if(this.lastTickTime % 3 < dt)
-            this.AIAutoMove();
+        this.AIAutoMove();
+        // if(this.lastTickTime % 3 < dt)
     }
 
     AIAutoMove () {
+        AIPathFinding.setState(this.game.eggs);
         for(let i=1;i<this.game.players.length;i++){
             const ai = this.game.players[i];
-            ai.direction.x = Math.floor(Math.random()*3 - 1);
-            ai.direction.y = Math.floor(Math.random()*3 - 1);
+            AIPathFinding.findDirection(ai, this.game.players.filter(p => p != ai));
+            // ai.direction.x = Math.floor(Math.random()*3 - 1);
+            // ai.direction.y = Math.floor(Math.random()*3 - 1);
         }
     }
 
