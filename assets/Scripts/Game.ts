@@ -14,6 +14,17 @@ import ScoreBoard from "./ScoreBoard";
 
 const {ccclass, property} = cc._decorator;
 
+const colors = [
+    cc.color(41, 255, 0),
+    cc.color(255, 224, 0),
+    cc.color(0, 255, 235),
+    cc.color(255, 0, 194),
+    cc.color(163, 0, 255),
+    cc.color(49, 138, 15),
+    cc.color(211, 72, 72),
+    cc.color(211, 72, 183),
+    cc.color(72, 78, 211)
+]
 @ccclass
 export default class Game extends cc.Component {
     @property(cc.Prefab)
@@ -37,6 +48,8 @@ export default class Game extends cc.Component {
     private ended: boolean = false;
     private AISpeedMultiplier: number = 1;
 
+    static playableSize: cc.Size;
+
 
     onLoad () {
         this.eggsPool = new EggsPool;
@@ -47,6 +60,7 @@ export default class Game extends cc.Component {
         this.generatePlayers();
 
         GameGlobal.getInstance().registerGame(this);
+        Game.playableSize = cc.size(this.node.getChildByName("Playable").getContentSize());
     }
 
     generatePlayers () {
@@ -64,12 +78,15 @@ export default class Game extends cc.Component {
             const player = newPlayer.getComponent(Player);
             player.setLogicPosition(pos);
             player.id = i;
+            player.setColorRing(colors[i]);
             if(i != 0)
                 player.setSpeed(this.AISpeedMultiplier);
             this.players.push(player);
 
             let scoreBoard = cc.instantiate(this.scoreUIPrefab);
-            scoreBoard.setPosition((i%3 + 0.5) * 300 + 10, cc.winSize.height - 100 * Math.floor(i/3) - 10);
+            const itemPerRow = 4;
+            scoreBoard.setPosition((i%itemPerRow + 0.5) * cc.winSize.width/itemPerRow + 10, cc.winSize.height - scoreBoard.height * (0.5 + Math.floor(i/itemPerRow)) - 5);
+            scoreBoard.color = colors[i];
             this.node.addChild(scoreBoard);
             this.scoreBoards.push(scoreBoard.getComponent(ScoreBoard));
             this.scoreBoards[i].initPlayer(i+1);

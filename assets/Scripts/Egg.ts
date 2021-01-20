@@ -5,6 +5,7 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
+import Game from "./Game";
 import GameConst from "./GameConst";
 import Player from "./Player";
 
@@ -44,8 +45,8 @@ export default class Egg extends cc.Component {
     }
 
     updatePosition () {
-        this.node.x = this.logicPosition.x * cc.winSize.width/GameConst.MAP_WIDTH;
-        this.node.y = this.logicPosition.y * cc.winSize.height/GameConst.MAP_HEIGHT;
+        this.node.x = this.logicPosition.x * Game.playableSize.width/GameConst.MAP_WIDTH;
+        this.node.y = this.logicPosition.y * Game.playableSize.height/GameConst.MAP_HEIGHT;
     }
 
     setLogicPosition (pos : cc.Vec2){

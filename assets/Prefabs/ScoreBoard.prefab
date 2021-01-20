@@ -49,8 +49,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 250,
-      "height": 75
+      "width": 155.1,
+      "height": 46.1
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -61,8 +61,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        162.332,
-        579.464,
+        114.9,
+        594,
         0,
         0,
         0,
@@ -113,7 +113,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 48.93,
+      "width": 38.52,
       "height": 40
     },
     "_anchorPoint": {
@@ -125,7 +125,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -108.341,
+        -66,
         1,
         0,
         0,
@@ -170,8 +170,10 @@
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "ce965e1c-c83e-44c1-87c4-ac9039d78bc2"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -214,26 +216,26 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 92,
+      "r": 0,
       "g": 0,
-      "b": 255,
+      "b": 0,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 66.74,
+      "width": 80.76,
       "height": 50.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 1,
-      "y": 0.5
+      "x": 0.9380881624566617,
+      "y": 0.46031746031746035
     },
     "_trs": {
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        107.496,
+        69,
         1,
         0,
         0,
@@ -278,8 +280,10 @@
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "ce965e1c-c83e-44c1-87c4-ac9039d78bc2"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -344,8 +348,8 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 250,
-      "height": 75
+      "width": 155.1,
+      "height": 46.1
     },
     "_resize": 0,
     "_N$layoutType": 0,

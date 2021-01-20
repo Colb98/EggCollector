@@ -5,6 +5,7 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
+import Game from "./Game";
 import GameConst from "./GameConst";
 import GameGlobal from "./GameGlobal";
 import ManualController from "./ManualController";
@@ -33,6 +34,7 @@ export default class Player extends cc.Component {
     id: number = 0;
 
     lastUpdateFacing: number = 0;
+    animationStopped: boolean = false;
 
     // LIFE-CYCLE CALLBACKS:
 
@@ -79,8 +81,8 @@ export default class Player extends cc.Component {
             // cc.log("Client: has position (%f, %f)", this.logicPosition.x, this.logicPosition.y);
         }
 
-        this.node.x = this.logicPosition.x * cc.winSize.width/GameConst.MAP_WIDTH;
-        this.node.y = this.logicPosition.y * cc.winSize.height/GameConst.MAP_HEIGHT;
+        this.node.x = this.logicPosition.x * Game.playableSize.width/GameConst.MAP_WIDTH;
+        this.node.y = this.logicPosition.y * Game.playableSize.height/GameConst.MAP_HEIGHT;
         this.updateFacing(v);
     }
 
@@ -103,6 +105,10 @@ export default class Player extends cc.Component {
         this.updateFacing(dir);
     }
 
+    setColorRing (color : cc.Color){
+        this.node.getChildByName("LightRing").color = color;
+    }
+
     updateFacing (direction : cc.Vec2) {
         var dx = direction.x;
         var dy = direction.y;
@@ -119,19 +125,19 @@ export default class Player extends cc.Component {
         }
         else {
             // at least 0.4s with no direction update => stop animation
-            if(!this.isManual() && Date.now() - this.lastUpdateFacing > 300){
-                // if(this.id == 1) cc.log("CLEARRRRRRR facing");
+            if(!this.isManual() && (Date.now() - this.lastUpdateFacing > 300)){
                 animator.setCurrentTime(0);
                 animator.stop();
+                this.animationStopped = true;
             }
-            else if(this.isManual){
+            else if(this.isManual()){
                 animator.setCurrentTime(0);
                 animator.stop();
+                this.animationStopped = true;
             }
         }
 
-        if(newFacing != this.facing && newFacing != null){
-            // if(this.id == 1) cc.log("change facing");
+        if((this.animationStopped || newFacing != this.facing) && newFacing != null){
             switch(newFacing){
                 case Direction.Up: animator.play("PlayerWalkBackward", 0.25); break;
                 case Direction.Down: animator.play("PlayerWalkForward", 0.25); break;
@@ -141,6 +147,7 @@ export default class Player extends cc.Component {
 
             this.facing = newFacing;
             this.lastUpdateFacing = Date.now();
+            this.animationStopped = false;
         }
         else if(newFacing == this.facing){
             this.lastUpdateFacing = Date.now();
