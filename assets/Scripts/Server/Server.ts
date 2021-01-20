@@ -33,8 +33,15 @@ export default class Server {
         if(this.game){
             this.game.update(dt);
             if(this.game.canPlay()) this.sendGameState();
+            else this.sendEndGame();
         }
 
+    }
+
+    sendEndGame() {
+        const packet = new Packet(PacketIDs.END_GAME);
+        packet.setField("winnerId", this.game.getWinner());
+        this.sendPacket(packet);
     }
 
     sendGameState (){

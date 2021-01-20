@@ -60,6 +60,11 @@ export default class GameGlobal {
                     this.curGame.setAIHandicap(speedMultiplier);
                     this.curGame.startGame();
                 }
+                break;
+            case PacketIDs.END_GAME:
+                if(this.curGame)
+                    this.curGame.onEndGame(packet.getField("winnerId"));
+                break;
         }
     }
 

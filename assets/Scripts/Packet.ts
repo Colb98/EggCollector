@@ -10,7 +10,8 @@ const {ccclass, property} = cc._decorator;
 export enum PacketIDs {
     NEW_GAME,
     MOVE,
-    UPDATE_STATE
+    UPDATE_STATE,
+    END_GAME
 }
 
 // @ccclass

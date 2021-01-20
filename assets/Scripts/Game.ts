@@ -33,6 +33,10 @@ export default class Game extends cc.Component {
     playerPrefabs: cc.Prefab[] = [];
     @property(cc.Prefab)
     scoreUIPrefab: cc.Prefab = null;
+    @property(cc.Node)
+    won: cc.Node = null;
+    @property(cc.Node)
+    lose: cc.Node = null;
     // @property
     numberOfPlayers: number = GameConst.PLAYER_MAX;
     // @property
@@ -54,6 +58,13 @@ export default class Game extends cc.Component {
     onLoad () {
         this.eggsPool = new EggsPool;
         this.eggsPool.init(this.eggPrefab);
+
+        if(this.won){
+            this.won.zIndex = 1;
+        }
+        if(this.lose){
+            this.lose.zIndex = 1;
+        }
     }
 
     start () {
@@ -149,6 +160,15 @@ export default class Game extends cc.Component {
     updateScores () {
         for(let i=0;i<this.players.length;i++){
             this.scoreBoards[i].setScore(this.players[i].score);
+        }
+    }
+
+    onEndGame (winnerId){
+        if(winnerId == 0){
+            this.won.active = true;
+        }
+        else {
+            this.lose.active = true;
         }
     }
 

@@ -23,6 +23,7 @@ export default class ServerGame {
 
     eggLastGenTimeElapsed: number = 0;
     lastEggId: number = 0;
+    winner: number = -1;
     AISpeedMultiplier: number = 1;
 
     reset () {
@@ -31,6 +32,7 @@ export default class ServerGame {
         this.timeElapsed = 0;
         this.players.length = 0;
         this.lastEggId = 0;
+        this.winner = -1;
     }
 
     start () {
@@ -46,6 +48,10 @@ export default class ServerGame {
 
     setHandicapForAI (val){
         this.AISpeedMultiplier = val;
+    }
+
+    getWinner (){
+        return this.winner;
     }
 
     canPlay () : boolean {
@@ -107,6 +113,13 @@ export default class ServerGame {
 
     onGameOver () {
         cc.log("GAME OVER SERVER");
+        let idMax = 0;
+        for(let i=1;i<this.players.length;i++){
+            if(this.players[i].score > this.players[idMax].score){
+                idMax = i;
+            }
+        }
+        this.winner = idMax;
     }
 
     update (dt : number) {
