@@ -1,0 +1,75 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "AnimLightRingEffect",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.5,
+  "sample": 10,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "07ff848e-50bb-464f-a650-094920af0a10"
+            }
+          },
+          {
+            "frame": 0.1,
+            "value": {
+              "__uuid__": "1172af42-0bea-4a58-ab0e-8e1f05c6d6c4"
+            }
+          },
+          {
+            "frame": 0.2,
+            "value": {
+              "__uuid__": "bef27b22-65cc-4ea8-9716-b494164b7f78"
+            }
+          },
+          {
+            "frame": 0.3,
+            "value": {
+              "__uuid__": "63979bd2-00a8-4096-bf2d-b3c805fad211"
+            }
+          },
+          {
+            "frame": 0.4,
+            "value": {
+              "__uuid__": "6d13fed0-f93a-4f8d-aa90-7ab0d2ce2f98"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": [
+    {
+      "frame": 0,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.1,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.2,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.3,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.4,
+      "func": "",
+      "params": []
+    }
+  ]
+}

@@ -107,7 +107,7 @@ export default class Player extends cc.Component {
         var dx = direction.x;
         var dy = direction.y;
         var newFacing : Direction = null;
-        var animator = this.getComponent(cc.Animation);
+        var animator = this.node.getChildByName("Player").getComponent(cc.Animation);
 
         if(dy != 0){
             if(direction.y > 0) newFacing = Direction.Up;
@@ -120,14 +120,18 @@ export default class Player extends cc.Component {
         else {
             // at least 0.4s with no direction update => stop animation
             if(!this.isManual() && Date.now() - this.lastUpdateFacing > 300){
-                if(this.id == 1) cc.log("CLEARRRRRRR facing");
+                // if(this.id == 1) cc.log("CLEARRRRRRR facing");
+                animator.setCurrentTime(0);
+                animator.stop();
+            }
+            else if(this.isManual){
                 animator.setCurrentTime(0);
                 animator.stop();
             }
         }
 
         if(newFacing != this.facing && newFacing != null){
-            if(this.id == 1) cc.log("change facing");
+            // if(this.id == 1) cc.log("change facing");
             switch(newFacing){
                 case Direction.Up: animator.play("PlayerWalkBackward", 0.25); break;
                 case Direction.Down: animator.play("PlayerWalkForward", 0.25); break;

@@ -693,10 +693,10 @@
     },
     "playerPrefabs": [
       {
-        "__uuid__": "746610cc-924b-471f-b918-569c1d856de5"
+        "__uuid__": "661ab4ab-2b2a-432d-9dee-4ed4ee41ef7e"
       },
       {
-        "__uuid__": "54368e40-09d2-4f2e-ba9f-119c409470c4"
+        "__uuid__": "a1caa578-7b23-4492-b5af-307ec4bd2991"
       }
     ],
     "scoreUIPrefab": {
