@@ -54,6 +54,12 @@ export default class Player extends cc.Component {
             .to(0.1, {color: cc.color(0,0,0)})
             .to(0.1, {color: cc.color(255,255,255)}))
         .start();
+
+        const audioSource = this.node.getComponent(cc.AudioSource);
+        if(audioSource){
+            audioSource.play();
+        }
+        
     }
 
     isManual (){

@@ -30,7 +30,7 @@ export default class Server {
         }
         // Flush the queue after tick
         this.packetQueue.length = 0;
-        if(this.game){
+        if(this.game && this.game.canPlay()){
             this.game.update(dt);
             if(this.game.canPlay()) this.sendGameState();
             else this.sendEndGame();

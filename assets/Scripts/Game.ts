@@ -37,6 +37,8 @@ export default class Game extends cc.Component {
     won: cc.Node = null;
     @property(cc.Node)
     lose: cc.Node = null;
+    @property(cc.Label)
+    timeLeftLb: cc.Label = null;
     // @property
     numberOfPlayers: number = GameConst.PLAYER_MAX;
     // @property
@@ -51,6 +53,7 @@ export default class Game extends cc.Component {
     private started: boolean = false;
     private ended: boolean = false;
     private AISpeedMultiplier: number = 1;
+
 
     static playableSize: cc.Size;
 
@@ -170,6 +173,7 @@ export default class Game extends cc.Component {
         else {
             this.lose.active = true;
         }
+        GameGlobal.getInstance().playEndGameSound(winnerId == 0);
     }
 
     // pauseGame () {
@@ -198,6 +202,7 @@ export default class Game extends cc.Component {
     update (dt) {
         if(!this.canPlay()) return;
         this.timeElapsed += dt;
+        this.timeLeftLb.string = Math.max(0, Math.floor(GameConst.GAME_TIME - this.timeElapsed)).toString();
 
         if(this.timeElapsed >= this.gameTime){
             cc.log("GAME OVER");

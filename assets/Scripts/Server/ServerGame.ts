@@ -8,6 +8,7 @@
 import GameConst from "../GameConst";
 import Player from "./ServerPlayer";
 import Egg from "./ServerEgg";
+import Game from "../Game";
 
 const {ccclass, property} = cc._decorator;
 
@@ -24,7 +25,7 @@ export default class ServerGame {
     eggLastGenTimeElapsed: number = 0;
     lastEggId: number = 0;
     winner: number = -1;
-    AISpeedMultiplier: number = 1;
+    AISpeedMultiplier: number = GameConst.AI_SPEED_MUL;
 
     reset () {
         this.started = false;
@@ -33,6 +34,7 @@ export default class ServerGame {
         this.players.length = 0;
         this.lastEggId = 0;
         this.winner = -1;
+        this.AISpeedMultiplier = GameConst.AI_SPEED_MUL;
     }
 
     start () {

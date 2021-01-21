@@ -17,12 +17,39 @@ export default class GameGlobal {
     curGame: Game = null;
     server: MockServer = null;
 
+    bgm: cc.AudioClip = null;
+    coin: cc.AudioClip = null;
+    win: cc.AudioClip = null;
+    lose: cc.AudioClip = null;
+
     static getInstance () {
         if(GameGlobal.instance == null){
             GameGlobal.instance = new GameGlobal;
             GameGlobal.instance.server = new MockServer(GameGlobal.instance);
         }
         return GameGlobal.instance;
+    }
+
+    
+    initAudioClips (bgm, coin, win, lose){
+        if(this.bgm != null) return;
+
+        this.bgm = bgm;
+        this.coin = coin;
+        this.win = win;
+        this.lose = lose;
+
+        cc.audioEngine.setMusicVolume(0.2);
+        cc.audioEngine.playMusic(this.bgm, true);
+    }
+
+    toggleMusic () {
+        if(cc.audioEngine.isMusicPlaying()){
+            cc.audioEngine.pauseMusic();
+        }
+        else {
+            cc.audioEngine.resumeMusic();
+        }
     }
 
     toMainMenu () {
@@ -36,8 +63,17 @@ export default class GameGlobal {
         }.bind(this));
     }
 
-    openOption () {
-
+    playEndGameSound (isWin){
+        let soundId;
+        cc.audioEngine.setMusicVolume(0.01);
+        if(isWin)
+            soundId = cc.audioEngine.playEffect(this.win, false);
+        else
+            soundId = cc.audioEngine.playEffect(this.lose, false);
+        
+        cc.audioEngine.setFinishCallback(soundId, function(){
+            cc.audioEngine.setMusicVolume(0.2);
+        })
     }
 
     registerGame (game : Game){
